@@ -145,11 +145,29 @@ def move():
                 vector(0, -10),
             ]
             plan = choice(options)
-            course.x = plan.x
+            #para buscar al pacman y ver a donde debe ir el fantasma
+            if((pacman.x > 0 and course.x > 0) or (pacman.x < 0 and course.x < 0)) and pacman.y > 0:
+                plan = vector(0,10)
+                if plan == course:
+                    plan = choice(options)
+            elif((pacman.x > 0 and course.x > 0) or (pacman.x < 0 and course.x < 0)) and pacman.y < 0:
+                plan = vector(0,-10)
+                if plan == course:
+                    plan = choice(options)
+            elif((pacman.y > 0 and course.y > 0) or (pacman.y < 0 and course.y < 0)) and pacman.x > 0:
+                plan = vector(10,0)
+                if plan == course:
+                    plan = choice(options)
+            elif((pacman.y > 0 and course.y > 0) or (pacman.y < 0 and course.y < 0)) and pacman.x < 0:
+                plan = vector(-10,0)
+                if plan == course:
+                    plan = choice(options)
+                
+            course.x = plan.x #define la direccion a donde se van a mover los fantasmas
             course.y = plan.y
 
         up()
-        goto(point.x + 10, point.y + 10)
+        goto(point.x + 10 , point.y + 10)
         dot(20, 'red')
 
     update()
@@ -185,5 +203,3 @@ onkey(lambda: change(0, -5), 'Down')
 world()
 move()
 done()
-
-
